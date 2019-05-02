@@ -16,8 +16,8 @@
 
   `sh /sdcard/mrw/root.sh`
 
-  After this, your device will reboot by installing SuperSU
-  If the device not reboot then execute the same for 5 times
+  * *After this, your device will reboot by installing SuperSU*
+  * *If the device not reboot then execute the same for 5 times*
 
 * After booted open Terminal Emulator app and type following
 
@@ -50,7 +50,7 @@ _**Requires**_ :- Android Version less than 5.0
   * choose settings and
   * choose remove root, tick keep backup option and unroot
 
-* Install older version of Kingroot eg v4.5.0 from apkmirror
+* Install older version of Kingroot eg v4.5.0 from [apkmirror](https://www.apkmirror.com/apk/kingroot-studio/kingroot/kingroot-4-5-0-release/)
   and root with it
 
 * Follow Method 1
