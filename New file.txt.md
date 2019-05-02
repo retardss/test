@@ -28,7 +28,7 @@ Root again with KingRoot
 and follow below procedure
 
 - Type `su` in Terminal Emulator and go to KingRoot app
-  - Tap on 3 dot and
+  - Tap on 3 dot
   - choose settings
   - choose remove root, _**untick**_ keep backup option and unroot
 
