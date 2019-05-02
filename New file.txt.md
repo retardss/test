@@ -9,8 +9,7 @@
 
 * Download Terminal Emulator and run following commands
 
-  `su`
-
+  `su`  
   `sh /sdcard/mrw/root.sh`
 
 * After succeeded with Green text type following
@@ -57,8 +56,8 @@ _**Requires**_ :- Android Version less than 5.0
 * Follow Method 1
 
 # Method 4 - by using Magisk Manager
-_**Requires**_ :- * Android Version greter than or equal to 5.0
-            * Unlocked BootLoader else your device will soft brick
+_**Requires**_ :- - Android Version greter than or equal to 5.0  
+            - Unlocked BootLoader else your device will soft brick
 
 * Reroot with KingRoot
 
