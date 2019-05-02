@@ -4,8 +4,8 @@
 
 ## Method 1
 
-* Make a folder with name mrw in internal storage
-  Extract this zip in that mrw folder
+* Make a folder with name _**mrw**_ in internal storage
+  Extract this zip in that _**mrw**_ folder
 
 * Download Terminal Emulator and run following commands
 
