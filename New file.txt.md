@@ -4,22 +4,22 @@
 
 ## Method 1
 
-* Make a folder with name _**mrw**_ in internal storage
+- Make a folder with name _**mrw**_ in internal storage
   Extract this zip in that _**mrw**_ folder
 
-* Download Terminal Emulator and run following commands
+- Download Terminal Emulator and run following commands
 
   `su`  
   `sh /sdcard/mrw/root.sh`
 
-* After succeeded with Green text type following
+- After succeeded with Green text type following
 
   `sh /sdcard/mrw/root.sh`
 
-  * *After this, your device will reboot by installing SuperSU*
-  * *If the device not reboot then execute the same for 5 times*
+  - *After this, your device will reboot by installing SuperSU*
+  - *If the device not reboot then execute the same for 5 times*
 
-* After booted open Terminal Emulator app and type following
+- After booted open Terminal Emulator app and type following
 
   `sh /sdcard/mrw/root.sh`
 
@@ -27,41 +27,41 @@
 Root again with KingRoot
 and follow below procedure
 
-* Type `su` in Terminal Emulator and go to KingRoot app
-  * Tap on 3 dot and
-  * choose settings
-  * choose remove root, _**untick**_ keep backup option and unroot
+- Type `su` in Terminal Emulator and go to KingRoot app
+  - Tap on 3 dot and
+  - choose settings
+  - choose remove root, _**untick**_ keep backup option and unroot
 
 _**Note:-**_ If your device rebooted at time of unrooting, this method will not work
 
-* Go to Terminal Emulator and type following
+- Go to Terminal Emulator and type following
 
   `sh /sdcard/mrw/root.sh`
 
-  * Your device will reboot after that and rooted with SuperSU
+- Your device will reboot after that and rooted with SuperSU
 
 ## Method 3 - by using older version of Kingroot
 _**Requires**_ :- Android Version less than 5.0
 
-* Unintall Kingroot by going to KingRoot app
-  * Tap on 3 dot
-  * choose settings
-  * choose remove root, _**tick**_ keep backup option and unroot
+- Unintall Kingroot by going to KingRoot app
+  - Tap on 3 dot
+  - choose settings
+  - choose remove root, _**tick**_ keep backup option and unroot
 
-* Install older version of Kingroot eg v4.5.0 from [apkmirror](https://www.apkmirror.com/apk/kingroot-studio/kingroot/kingroot-4-5-0-release/)
+- Install older version of Kingroot eg v4.5.0 from [apkmirror](https://www.apkmirror.com/apk/kingroot-studio/kingroot/kingroot-4-5-0-release/)
   and root with it
 
-* Follow Method 1
+- Follow Method 1
 
 # Method 4 - by using Magisk Manager
 _**Requires**_ :- - Android Version greter than or equal to 5.0  
                      - Unlocked BootLoader else your device will soft brick
 
-* Reroot with KingRoot
+- Reroot with KingRoot
 
-* Install Magisk Manager
-  * install Magisk by connecting to internet
-  * and tap on `install` option
-  * and choose `Direct Install(Recommended)`
+- Install Magisk Manager
+  - install Magisk by connecting to internet
+  - tap on `install` option
+  - choose `Direct Install(Recommended)`
 
 * Follow Method 2 and reboot your mobile
