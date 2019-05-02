@@ -27,12 +27,10 @@
 Root again with KingRoot
 and follow below procedure
 
-* Type
-  `su`
-  in Terminal Emulator and go to KingRoot app
-  Tap on 3 dot and
-  choose settings and
-  choose remove root, untick keep backup option and unroot
+* Type `su` in Terminal Emulator and go to KingRoot app
+  * Tap on 3 dot and
+  * choose settings
+  * choose remove root, _**untick**_ keep backup option and unroot
 
 _**Note:-**_ If your device rebooted at time of unrooting, this method will not work
 
@@ -46,9 +44,9 @@ _**Note:-**_ If your device rebooted at time of unrooting, this method will not 
 _**Requires**_ :- Android Version less than 5.0
 
 * Unintall Kingroot by going to KingRoot app
-  * Tap on 3 dot and
-  * choose settings and
-  * choose remove root, tick keep backup option and unroot
+  * Tap on 3 dot
+  * choose settings
+  * choose remove root, _**tick**_ keep backup option and unroot
 
 * Install older version of Kingroot eg v4.5.0 from [apkmirror](https://www.apkmirror.com/apk/kingroot-studio/kingroot/kingroot-4-5-0-release/)
   and root with it
@@ -57,13 +55,13 @@ _**Requires**_ :- Android Version less than 5.0
 
 # Method 4 - by using Magisk Manager
 _**Requires**_ :- - Android Version greter than or equal to 5.0  
-            - Unlocked BootLoader else your device will soft brick
+                     - Unlocked BootLoader else your device will soft brick
 
 * Reroot with KingRoot
 
 * Install Magisk Manager
   * install Magisk by connecting to internet
-  * and tap on install option
-  * and choose Direct Install(Recommended)
+  * and tap on `install` option
+  * and choose `Direct Install(Recommended)`
 
 * Follow Method 2 and reboot your mobile
