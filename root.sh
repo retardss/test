@@ -2,13 +2,13 @@
 
 # @HemanthJabalpuri XDA
 
-# Replace KingRoot or KingoRoot possibly others with SuperSU
+# Replace KingRoot or Kingo ROOT possibly others with SuperSU
 # Idea to remove root from terminal with shell script is by Mr.Wolf and edited his script
-# +for compatible of newer versions of Kingroot
+# +for compatible of newer versions of KingRoot
 # Newer versions of KingRoot are capable of recreating deleted files immediately
 # For this you need to completely uninstall KingRoot app
-# +or delete files of Kingroot in /data will solve this
-# My script will do the same thing by deleting all dirs and files of Kingroot
+# +or delete files of KingRoot in /data will solve this
+# My script will do the same thing by deleting all dirs and files of KingRoot
 # +and capable of flashing SuperSU directly in booted android without need of custom recovery
 
 ##########################################################################################
@@ -120,6 +120,120 @@ is_substring() {
   esac;
 }
 
+abort() {
+  echo
+  for i in "$@"; do
+    echo -e $R"  ${i}\n"$N
+  done
+  exit 1
+}
+
+common_files() {
+  commfiles="
+    /system/bin/su
+    /system/xbin/su
+    /system/xbin/supolicy
+  "
+  for i in $commfiles; do delete $i; done
+}
+
+extract_file() {
+  bbarmb=1308724;   bbarm=$((bbarmb/1024));     bbarme=$((bbarmb%1024));     bbarms=$((bbarmb-bbarme));       bbarmz=$((1024-bbarme))
+  bbmipsb=2598944;  bbmips=$((bbmipsb/1024));   bbmipse=$((bbmipsb%1024));   bbmipss=$((bbmipsb-bbmipse));    bbmipsz=$((1024-bbmipse))
+  bbx86b=1103396;   bbx86=$((bbx86b/1024));     bbx86e=$((bbx86b%1024));     bbx86s=$((bbx86b-bbx86e));       bbx86z=$((1024-bbx86e))
+  kingrb=2979596;   kingr=$((kingrb/1024));     kingre=$((kingrb%1024));     kingrs=$((kingrb-kingre));       kingrz=$((1024-kingre))
+  readmeb=3354;     readme=$((readmeb/1024));   readmee=$((readmeb%1024));   readmes=$((readmeb-readmee));    readmez=$((1024-readmee))
+  supersub=6882992; supersu=$((supersub/1024)); supersue=$((supersub%1024)); supersus=$((supersub-supersue)); supersuz=$((1024-supersue))
+  updatebb=15946;   updateb=$((updatebb/1024)); updatebe=$((updatebb%1024)); updatebs=$((updatebb-updatebe)); updatebz=$((1024-updatebe))
+
+  script=23
+  scriptb=23552
+
+  skip=$script
+  skip1=$((scriptb+bbarms))
+  if [ "$1" = "busybox-arm" ] || [ "$1" = "all" ]; then
+    dd if="$0" of="$cdir/busybox-arm" bs=1024 skip=$skip count=$bbarm
+    dd if="$0" of="$cdir/busybox-arm1" bs=1 skip=$skip1 count=$bbarme
+    cat "$cdir/busybox-arm1" >> "$cdir/busybox-arm"
+    rm "$cdir/busybox-arm1"
+    if ! [ -f "$cdir/busybox-arm" ] && ! sha1_check "$cdir/busybox-arm" "1232d6d9ee6507c2904c9fbeecf9e36af3b6035d" ; then
+      abort "Unable to extract busybox-arm"
+    fi
+  fi
+
+  skip=$((skip+bbarm+1))
+  skip1=$((skip1+bbarme+bbarmz+bbmipss))
+  if [ "$1" = "busybox-mips" ] || [ "$1" = "all" ]; then
+    dd if="$0" of="$cdir/busybox-mips" bs=1024 skip=$skip count=$bbmips
+    dd if="$0" of="$cdir/busybox-mips1" bs=1 skip=$skip1 count=$bbmipse
+    cat "$cdir/busybox-mips1" >> "$cdir/busybox-mips"
+    rm "$cdir/busybox-mips1"
+    if ! [ -f "$cdir/busybox-mips" ] && ! sha1_check "$cdir/busybox-mips" "3df1a0803395aab2ec66160482fd571096b3911d" ; then
+      abort "Unable to extract busybox-mips"
+    fi
+  fi
+
+  skip=$((skip+bbmips+1))
+  skip1=$((skip1+bbmipse+bbmipsz+bbx86s))
+  if [ "$1" = "busybox-x86" ] || [ "$1" = "all" ]; then
+    dd if="$0" of="$cdir/busybox-x86" bs=1024 skip=$skip count=$bbx86
+    dd if="$0" of="$cdir/busybox-x861" bs=1 skip=$skip1 count=$bbx86e
+    cat "$cdir/busybox-x861" >> "$cdir/busybox-x86"
+    rm "$cdir/busybox-x861"
+    if ! [ -f "$cdir/busybox-x86" ] && ! sha1_check "$cdir/busybox-x86" "d9e8528908dcf87a34df110f05d03695ed291760" ; then
+      abort "Unable to extract busybox-x86"
+    fi
+  fi
+
+  skip=$((skip+bbx86+1))
+  skip1=$((skip1+bbx86e+bbx86z+kingrs))
+  if [ "$1" = "KingRoot_4.5.0.apk" ] || [ "$1" = "all" ]; then
+    dd if="$0" of="$cdir/KingRoot_4.5.0.apk" bs=1024 skip=$skip count=$kingr
+    dd if="$0" of="$cdir/KingRoot_4.5.0.apk1" bs=1 skip=$skip1 count=$kingre
+    cat "$cdir/KingRoot_4.5.0.apk1" >> "$cdir/KingRoot_4.5.0.apk"
+    rm "$cdir/KingRoot_4.5.0.apk1"
+    if ! [ -f "$cdir/KingRoot_4.5.0.apk" ] && ! sha1_check "$cdir/KingRoot_4.5.0.apk" "df48a7852a458da71f44bb3c95ef9b9588938e82" ; then
+      abort "Unable to extract KingRoot_4.5.0.apk"
+    fi
+  fi
+
+  skip=$((skip+kingr+1))
+  skip1=$((skip1+kingre+kingrz+readmes))
+  if [ "$1" = "README.html" ] || [ "$1" = "all" ]; then
+    dd if="$0" of="$cdir/README.html" bs=1024 skip=$skip count=$readme
+    dd if="$0" of="$cdir/README.html1" bs=1 skip=$skip1 count=$readmee
+    cat "$cdir/README.html1" >> "$cdir/README.html"
+    rm "$cdir/README.html1"
+    if ! [ -f "$cdir/README.html" ] && ! sha1_check "$cdir/README.html" "c8fcdf115eea49963f7de872bb90a2b57cf36f56" ; then
+      abort "Unable to extract README.html"
+    fi
+  fi
+
+  skip=$((skip+readme+1))
+  skip1=$((skip1+readmee+readmez+supersus))
+  if [ "$1" = "SuperSU-v2.82-SR5-20171001.zip" ] || [ "$1" = "all" ]; then
+    dd if="$0" of="$cdir/SuperSU-v2.82-SR5-20171001.zip" bs=1024 skip=$skip count=$supersu
+    dd if="$0" of="$cdir/SuperSU-v2.82-SR5-20171001.zip1" bs=1 skip=$skip1 count=$supersue
+    cat "$cdir/SuperSU-v2.82-SR5-20171001.zip1" >> "$cdir/SuperSU-v2.82-SR5-20171001.zip"
+    rm "$cdir/SuperSU-v2.82-SR5-20171001.zip1"
+    if ! [ -f "$cdir/SuperSU-v2.82-SR5-20171001.zip" ] && ! sha1_check "$cdir/SuperSU-v2.82-SR5-20171001.zip" "263e0d8ebecfa1cb5a6a3a7fcdd9ad1ecd7710b7" ; then
+      abort "Unable to extract SuperSU-v2.82-SR5-20171001.zip"
+    fi
+  fi
+
+  skip=$((skip+supersu+1))
+  skip1=$((skip1+supersue+supersuz+updatebs))
+  if [ "$1" = "update-binary" ] || [ "$1" = "all" ]; then
+    dd if="$0" of="$cdir/update-binary" bs=1024 skip=$skip count=$updateb
+    dd if="$0" of="$cdir/update-binary1" bs=1 skip=$skip1 count=$updatebe
+    cat "$cdir/update-binary1" >> "$cdir/update-binary"
+    rm "$cdir/update-binary1"
+    if ! [ -f "$cdir/update-binary" ] && ! sha1_check "$cdir/update-binary" "a87d406e927898be30f3932dd741df821123ffb9" ; then
+      abort "Unable to extract update-binary"
+    fi
+  fi
+}
+
 ##########################################################################################
 # KingRoot
 ##########################################################################################
@@ -183,13 +297,10 @@ kingroot_system() {
     /system/bin/.usr/.ku
     /system/bin/.usr
     /system/bin/rt.sh
-    /system/bin/su
     /system/usr/iku/isu
     /system/usr/iku
     /system/xbin/ku.sud
     /system/xbin/ku.sud.tmp
-    /system/xbin/su
-    /system/xbin/supolicy
   "
   for file in $kingfiles; do
     if [ -d $file ]; then
@@ -234,7 +345,6 @@ kingoroot_system() {
     /system/app/KingoUser
     /system/bin/.ext/.su
     /system/bin/.ext
-    /system/bin/su
     /system/etc/init.d/99SuperSUDaemon
     /system/etc/.has_su_daemon
     /system/lib/libsupol.so
@@ -242,8 +352,6 @@ kingoroot_system() {
     /system/sbin/su
     /system/sbin
     /system/xbin/daemonsu
-    /system/xbin/su
-    /system/xbin/supolicy
   "
   for file in $kingofiles; do
     if [ -d $file ]; then
@@ -342,6 +450,8 @@ supersu_code() {
 # Remove Root
 ##########################################################################################
 remove_king() {
+  common_files
+
   # KingRoot
   kingroot_data
   kingroot_storage
@@ -363,16 +473,16 @@ root() {
     echo 1 > /data/replaceroot
   elif [ "$(cat /data/replaceroot)" -eq 5 ]; then
     rm -f /data/replaceroot
-    echo; echo -e $R" Unable to remove Kingroot"$N
-    echo; echo -e $R" Try other methods by reading $cdir/README.txt"$N; echo
-    exit 1
+    abort " Unable to remove Kingroot" " Try other methods by reading $cdir/README.html"
   else
     echo $((`cat /data/replaceroot`+1)) > /data/replaceroot
   fi
 
   delete /data/app/*kingroot*
   find /system/app -iname *kinguser* -delete
+  extract_file "KingRoot_4.5.0.apk"
   LD_LIBRARY_PATH=/system/lib:/vendor/lib pm install -r $cdir/KingRoot_4.5.0.apk >/dev/null 2>&1
+  rm "$cdir/KingRoot_4.5.0.apk"
 
   find_delete kingroot
   find_delete com.toprange.locker
@@ -435,7 +545,7 @@ postuninstall() {
     if [ -d $file ]; then
       rmdir $file
     else
-      delete $file 2>/dev/null
+      delete $file
     fi
   done
   echo; echo -e $G"Finished Cleaning..."$N
@@ -446,6 +556,17 @@ postuninstall() {
 ##########################################################################################
 # Pre-Checks
 ##########################################################################################
+cdir="$(cd "$0"/../; pwd)"
+LOG="$cdir/root.log"
+exec 2>>"$LOG"
+
+if [ "$1" = "-x" ] && ! [ -z "$2" ]; then
+  extract_file "$2"
+  exit
+else
+  extract_file "README.html" 2>/dev/null
+fi
+
 BL='\e[01;90m' >/dev/null 2>&1; # Black
 R='\e[01;91m' >/dev/null 2>&1; # Red
 G='\e[01;92m' >/dev/null 2>&1; # Green
@@ -458,40 +579,8 @@ N='\e[0m' >/dev/null 2>&1; # Null
 
 id="$(id)"; id="${id#*=}"; id="${id%%\(*}"; id="${id%% *}"
 if [ "$id" != "0" ] && [ "$id" != "root" ]; then
-  clear
-  echo; echo -e $R"Type su and then execute"$N
-  sleep 2
-  clear
-  exit 1
+  abort "Type su and then execute"
 fi
-
-OLDPWD="$PWD"
-cd "$0"/../
-if [ -f "$(getdir "$0")/busybox-arm" ]; then
-  bbpath="$(getdir "$0")"
-elif [ -f "$PWD/busybox-arm" ]; then
-  bbpath="$PWD"
-elif [ -f "$(getdir "$(readlink -f "$0")")/busybox-arm" ]; then
-  bbpath="$(getdir "$(readlink -f "$0")")"
-else
-  echo -e $R" Unable to get path of this script.. aborting"$N
-  exit 1
-fi
-cd "$OLDPWD"
-
-if [ -z "$(command -v getprop)" ]; then
-  echo; echo $R"getprop command not found."$N; echo
-  exit 1
-fi
-
-case "$(getprop ro.product.cpu.abi)" in
-  *arm*) ARCH=arm;;
-  *86*) ARCH=x86;;
-  *mips*) ARCH=mips;;
-  *) echo -e $R" Unsupported ARCH $(getprop ro.product.cpu.abi)"$N
-     exit 1
-  ;;
-esac
 
 mount -o remount,rw /
 mount -o remount,rw /system
@@ -499,25 +588,37 @@ mount -o remount,rw /system
 mount | while read line; do
   case "$line" in
     *" /system "*)
-      is_substring "rw," "$line" || ( echo; echo $R"Unable to mount /system"$N; echo; exit 1 )
+      is_substring "rw," "$line" || abort "Unable to mount /system"
       break
     ;;
   esac
 done
 
-if [ -e /system/xbin/busybox ]; then
-  rm /system/xbin/busybox
+if [ -z "$(command -v getprop)" ] || [ -z "$(command -v dd)" ]; then
+  abort "getprop/dd command not found."
 fi
+
+ARCH="$(getprop ro.product.cpu.abi)"
+case "$ARCH" in
+  *arm*) ARCH=arm;;
+  *86*) ARCH=x86;;
+  *mips*) ARCH=mips;;
+  *) abort " Unsupported ARCH:- $ARCH"
+  ;;
+esac
+
+bb="/system/xbin/busybox"
+[ -e "$bb" ] && rm $bb
 if ! [ -d /system/xbin ]; then
   mkdir /system/xbin && chmod 755 /system/xbin
 fi
-cat ${bbpath}/busybox-$ARCH > /system/xbin/busybox
-chmod 555 /system/xbin/busybox
-if ! [ -x "/system/xbin/busybox" ]; then
-  echo; echo $R"Busybox setup failed"$N; echo
-  exit 1
+extract_file "busybox-$ARCH" 2>/dev/null
+cat ${cdir}/busybox-$ARCH > $bb
+rm "$cdir/busybox-$ARCH"
+chmod 555 $bb
+if ! [ -x "$bb" ]; then
+  abort "Busybox setup failed"
 fi
-bb="/system/xbin/busybox"
 cd /system/xbin
 for link in $($bb ls); do
   if [ -L $link ]; then
@@ -526,50 +627,22 @@ for link in $($bb ls); do
     esac
   fi
 done
-/system/xbin/busybox --install -s /system/xbin
+$bb --install -s /system/xbin
 
 export PATH=/system/xbin:/system/bin
-set_perm 0 0 0755 /system/xbin/busybox
+set_perm 0 0 0755 $bb
 cd /
 
-for i in echo dirname readlink sha1sum head tail cut rm rmdir chattr mv ln chmod chown chgrp chcon strings mkdir unzip; do
+for i in basename cat chattr chcon chgrp chmod chown cut dd dirname echo find grep head ln mkdir mv readlink reboot rm rmdir sh sha1sum shred sleep strings tail unzip; do
   if [ -z "$(command -v $i)" ]; then
-    echo; echo -e $R"Busybox setup failed .. aborting"$N; echo
-    exit 1
+    abort "Busybox setup failed .. aborting"
   fi
 done
-
-cdir="$(dirname "$(readlink -f "$0")")";
-LOG="$cdir/root.log"
-exec 2>>"$LOG"
-
-for i in SuperSU-v2.82-SR5-20171001.zip update-binary README.txt busybox-arm busybox-x86 busybox-mips; do
-  if ! [ -r "$cdir/$i" ]; then
-    echo; echo -e $R"Essential files are missing"$N
-    echo; echo -e $R"Place all essential files in correct folder and execute"$N; echo
-    exit 1
-  fi
-done
-
-if sha1_check "$cdir/busybox-arm" "1232d6d9ee6507c2904c9fbeecf9e36af3b6035d" &&
-  sha1_check "$cdir/busybox-mips" "3df1a0803395aab2ec66160482fd571096b3911d" &&
-  sha1_check "$cdir/busybox-x86" "d9e8528908dcf87a34df110f05d03695ed291760" &&
-  sha1_check "$cdir/KingRoot_4.5.0.apk" "df48a7852a458da71f44bb3c95ef9b9588938e82" &&
-  sha1_check "$cdir/README.txt" "897254782a31a452528aadc62c9b639e1223bfdf" &&
-  sha1_check "$cdir/SuperSU-v2.82-SR5-20171001.zip" "263e0d8ebecfa1cb5a6a3a7fcdd9ad1ecd7710b7" &&
-  sha1_check "$cdir/update-binary" "a87d406e927898be30f3932dd741df821123ffb9"
-then
-  true
-else
-  echo; echo -e $R" Some files are moidfied"$N
-  echo; echo -e $R" Please download correct package"$N; echo
-  exit 1
-fi
 
 ##########################################################################################
 # Logging
 ##########################################################################################
-ARCH=$(grep -Eo "ro.product.cpu.abi(2)?=.+" /system/build.prop 2>/dev/null | grep -Eo "[^=]*$" | head -n1)
+ARCH="$(grep -Eo "ro.product.cpu.abi(2)?=.+" /system/build.prop 2>/dev/null | grep -Eo "[^=]*$" | head -n1)"
 for field in ro.product.device ro.build.product ro.product.name; do
   device_name="$(getprop "$field")"
   if [ "${#device_name}" -ge "2" ]; then
@@ -621,14 +694,20 @@ echo; echo -e $G" Installing Root"$N; echo
 
 [ -f /data/replaceroot ] && rm /data/replaceroot
 # SuperSU installation
-mkdir /dev/tmp || ( echo -e $R"Unable to create /dev/tmp, aborting"$N; exit 1 )
+extract_file "SuperSU-v2.82-SR5-20171001.zip"
+extract_file "update-binary"
+
+mkdir /dev/tmp || abort "Unable to create /dev/tmp, aborting"
 echo "###BEGIN SUPERSU LOG###" >&2
 sh "$cdir/update-binary" "dummy" "1" "$cdir/SuperSU-v2.82-SR5-20171001.zip"
 echo "###END SUPERSU LOG###" >&2
 
+rm "$cdir/SuperSU-v2.82-SR5-20171001.zip"
+rm "$cdir/update-binary"
+
 if [ -f /system/xbin/su ] && su -v | grep -qi SUPERSU
 then
-  echo; echo -e $G"* ${C}the device will reboot after a few seconds${N}${G} *"$N
+  echo; echo -e $G"* ${C}the device will reboot after a few seconds${G} *"$N
   echo; echo -e $G"**********************************************"$N
   (
   setprop sys.powerctl reboot
@@ -637,5 +716,9 @@ then
   )&
 fi
 echo; echo "Finished"; echo
-
+##########################################################################################
+##########################################################################################
+##########################################################################################
+##########################################################################################
+################################
 exit 0
