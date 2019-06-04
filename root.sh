@@ -158,7 +158,7 @@ extract_file() {
     dd if="$0" of="$cdir/busybox-arm1" bs=1 skip=$skip1 count=$bbarme
     cat "$cdir/busybox-arm1" >> "$cdir/busybox-arm"
     rm "$cdir/busybox-arm1"
-    if ! [ -f "$cdir/busybox-arm" ] && ! sha1_check "$cdir/busybox-arm" "1232d6d9ee6507c2904c9fbeecf9e36af3b6035d" ; then
+    if ! [ -f "$cdir/busybox-arm" ] || ! sha1_check "$cdir/busybox-arm" "1232d6d9ee6507c2904c9fbeecf9e36af3b6035d"; then
       abort "Unable to extract busybox-arm"
     fi
   fi
@@ -170,7 +170,7 @@ extract_file() {
     dd if="$0" of="$cdir/busybox-mips1" bs=1 skip=$skip1 count=$bbmipse
     cat "$cdir/busybox-mips1" >> "$cdir/busybox-mips"
     rm "$cdir/busybox-mips1"
-    if ! [ -f "$cdir/busybox-mips" ] && ! sha1_check "$cdir/busybox-mips" "3df1a0803395aab2ec66160482fd571096b3911d" ; then
+    if ! [ -f "$cdir/busybox-mips" ] || ! sha1_check "$cdir/busybox-mips" "3df1a0803395aab2ec66160482fd571096b3911d"; then
       abort "Unable to extract busybox-mips"
     fi
   fi
@@ -182,7 +182,7 @@ extract_file() {
     dd if="$0" of="$cdir/busybox-x861" bs=1 skip=$skip1 count=$bbx86e
     cat "$cdir/busybox-x861" >> "$cdir/busybox-x86"
     rm "$cdir/busybox-x861"
-    if ! [ -f "$cdir/busybox-x86" ] && ! sha1_check "$cdir/busybox-x86" "d9e8528908dcf87a34df110f05d03695ed291760" ; then
+    if ! [ -f "$cdir/busybox-x86" ] || ! sha1_check "$cdir/busybox-x86" "d9e8528908dcf87a34df110f05d03695ed291760"; then
       abort "Unable to extract busybox-x86"
     fi
   fi
@@ -194,7 +194,7 @@ extract_file() {
     dd if="$0" of="$cdir/KingRoot_4.5.0.apk1" bs=1 skip=$skip1 count=$kingre
     cat "$cdir/KingRoot_4.5.0.apk1" >> "$cdir/KingRoot_4.5.0.apk"
     rm "$cdir/KingRoot_4.5.0.apk1"
-    if ! [ -f "$cdir/KingRoot_4.5.0.apk" ] && ! sha1_check "$cdir/KingRoot_4.5.0.apk" "df48a7852a458da71f44bb3c95ef9b9588938e82" ; then
+    if ! [ -f "$cdir/KingRoot_4.5.0.apk" ] || ! sha1_check "$cdir/KingRoot_4.5.0.apk" "df48a7852a458da71f44bb3c95ef9b9588938e82"; then
       abort "Unable to extract KingRoot_4.5.0.apk"
     fi
   fi
@@ -206,7 +206,7 @@ extract_file() {
     dd if="$0" of="$cdir/README.html1" bs=1 skip=$skip1 count=$readmee
     cat "$cdir/README.html1" >> "$cdir/README.html"
     rm "$cdir/README.html1"
-    if ! [ -f "$cdir/README.html" ] && ! sha1_check "$cdir/README.html" "c8fcdf115eea49963f7de872bb90a2b57cf36f56" ; then
+    if ! [ -f "$cdir/README.html" ] || ! sha1_check "$cdir/README.html" "c8fcdf115eea49963f7de872bb90a2b57cf36f56"; then
       abort "Unable to extract README.html"
     fi
   fi
@@ -218,7 +218,7 @@ extract_file() {
     dd if="$0" of="$cdir/SuperSU-v2.82-SR5-20171001.zip1" bs=1 skip=$skip1 count=$supersue
     cat "$cdir/SuperSU-v2.82-SR5-20171001.zip1" >> "$cdir/SuperSU-v2.82-SR5-20171001.zip"
     rm "$cdir/SuperSU-v2.82-SR5-20171001.zip1"
-    if ! [ -f "$cdir/SuperSU-v2.82-SR5-20171001.zip" ] && ! sha1_check "$cdir/SuperSU-v2.82-SR5-20171001.zip" "263e0d8ebecfa1cb5a6a3a7fcdd9ad1ecd7710b7" ; then
+    if ! [ -f "$cdir/SuperSU-v2.82-SR5-20171001.zip" ] || ! sha1_check "$cdir/SuperSU-v2.82-SR5-20171001.zip" "263e0d8ebecfa1cb5a6a3a7fcdd9ad1ecd7710b7"; then
       abort "Unable to extract SuperSU-v2.82-SR5-20171001.zip"
     fi
   fi
@@ -230,7 +230,7 @@ extract_file() {
     dd if="$0" of="$cdir/update-binary1" bs=1 skip=$skip1 count=$updatebe
     cat "$cdir/update-binary1" >> "$cdir/update-binary"
     rm "$cdir/update-binary1"
-    if ! [ -f "$cdir/update-binary" ] && ! sha1_check "$cdir/update-binary" "a87d406e927898be30f3932dd741df821123ffb9" ; then
+    if ! [ -f "$cdir/update-binary" ] || ! sha1_check "$cdir/update-binary" "a87d406e927898be30f3932dd741df821123ffb9"; then
       abort "Unable to extract update-binary"
     fi
   fi
@@ -559,11 +559,15 @@ postuninstall() {
 # Pre-Checks
 ##########################################################################################
 cdir="$(cd "$0"/../; pwd)"
+if ! [ -f "$cdir/root.sh" ]; then
+  abort "Unable to get path of script"
+fi
+
 LOG="$cdir/root.log"
 exec 2>>"$LOG"
 
 if [ "$1" = "-x" ] && ! [ -z "$2" ]; then
-  extract_file "$2"
+  extract_file "$2" 2>/dev/null
   exit
 else
   extract_file "README.html" 2>/dev/null
@@ -719,6 +723,5 @@ then
 fi
 echo; echo "Finished"; echo
 ##########################################################################################
-##########################################################################################
-#########################################
+##################################################
 exit 0
