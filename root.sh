@@ -1,7 +1,6 @@
 #!/system/bin/sh
 
 # @HemanthJabalpuri XDA
-
 # Replace KingRoot or Kingo ROOT possibly others with SuperSU
 # Idea to remove root from terminal with shell script is by Mr.Wolf and edited his script
 # +for compatible of newer versions of KingRoot
